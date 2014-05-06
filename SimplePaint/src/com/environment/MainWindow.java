@@ -1,6 +1,9 @@
 package com.environment;
 
 import javax.swing.*;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -27,17 +30,21 @@ public class MainWindow extends JFrame {
 		
 		setTitle("SimplePaint");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+		setResizable(false);
+		
+		//Main container layout.
+		BoxLayout border = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
+		getContentPane().setLayout(border);
 		
 		drawingPanel = new JPanel();
-		drawingPanel.setLayout(null);		
+		drawingPanel.setLayout(null);
+		drawingPanel.setPreferredSize(new Dimension(width, height));
 		
 		TextBox editor = new TextBox();		
 		drawingPanel.add(editor);
-		editor.setVisible(false);		
+		editor.setVisible(false);
 		
-		canvasControl = new DrawableCanvas(editor);						
+		canvasControl = new DrawableCanvas(editor);
 		drawingPanel.add(canvasControl);
 		canvasControl.setBounds(0, 0, width, height);
 		
@@ -45,6 +52,11 @@ public class MainWindow extends JFrame {
 
 		drawingSurface = canvasControl.getDrawingSurface();
 		
+		//Buttons layout.
+		FlowLayout buttonsLayout = new FlowLayout();
+		JPanel buttonsPanel = new JPanel(buttonsLayout);
+		buttonsPanel.setPreferredSize(new Dimension(width, 100));
+				
 		//Freehand.
 		JButton freehandButton = new JButton("Freehand");
 		freehandButton.setMnemonic('f');
@@ -58,7 +70,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(freehandButton);
+		buttonsPanel.add(freehandButton);
 		
 		//Text.
 		JButton textButton = new JButton("Text");
@@ -73,7 +85,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(textButton);
+		buttonsPanel.add(textButton);
 		
 		//Polyline.
 		JButton polylineButton = new JButton("Polyline");
@@ -88,7 +100,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(polylineButton);
+		buttonsPanel.add(polylineButton);
 		
 		//Aerograph.
 		JButton aerographButton = new JButton("Aerograph");
@@ -103,7 +115,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(aerographButton);
+		buttonsPanel.add(aerographButton);
 		
 		//Selection.
 		JButton selectionButton = new JButton("Selection");
@@ -118,7 +130,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(selectionButton);
+		buttonsPanel.add(selectionButton);
 		
 		//FloodFill.
 		JButton floodFillButton = new JButton("Flood fill");
@@ -133,7 +145,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(floodFillButton);
+		buttonsPanel.add(floodFillButton);
 		
 		//Rectangle.
 		JButton rectangleButton = new JButton("Rectangle");
@@ -148,7 +160,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(rectangleButton);
+		buttonsPanel.add(rectangleButton);
 		
 		//Ellipse.
 		JButton ellipseButton = new JButton("Ellipse");
@@ -163,7 +175,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(ellipseButton);
+		buttonsPanel.add(ellipseButton);
 		
 		//Clear.
 		JButton clearButton = new JButton("Clean");
@@ -175,7 +187,7 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(clearButton);
+		buttonsPanel.add(clearButton);
 		
 		//Save.
 		JButton saveButton = new JButton("Save");
@@ -191,10 +203,11 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		getContentPane().add(saveButton);
-				
-		pack();
-		setBounds(0,0, 320, 525);
+		buttonsPanel.add(saveButton);
+		
+		getContentPane().add(buttonsPanel);
+		
+		pack();		
 		drawingSurface.erase();
 	}
 	
