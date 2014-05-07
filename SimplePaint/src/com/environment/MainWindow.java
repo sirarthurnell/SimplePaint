@@ -2,8 +2,9 @@ package com.environment;
 
 import javax.swing.*;
 
+import com.thirdparty.WrapLayout;
+
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -33,8 +34,8 @@ public class MainWindow extends JFrame {
 		setResizable(false);
 		
 		//Main container layout.
-		BoxLayout border = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
-		getContentPane().setLayout(border);
+		BoxLayout mainLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
+		getContentPane().setLayout(mainLayout);
 		
 		drawingPanel = new JPanel();
 		drawingPanel.setLayout(null);
@@ -53,9 +54,9 @@ public class MainWindow extends JFrame {
 		drawingSurface = canvasControl.getDrawingSurface();
 		
 		//Buttons layout.
-		FlowLayout buttonsLayout = new FlowLayout();
+		WrapLayout buttonsLayout = new WrapLayout();
 		JPanel buttonsPanel = new JPanel(buttonsLayout);
-		buttonsPanel.setPreferredSize(new Dimension(width, 100));
+		buttonsPanel.setSize(new Dimension(width, 1));
 				
 		//Freehand.
 		JButton freehandButton = new JButton("Freehand");
